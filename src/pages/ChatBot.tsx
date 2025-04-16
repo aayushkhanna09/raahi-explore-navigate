@@ -2,7 +2,7 @@ import React, { useState, useRef, useEffect } from 'react';
 import Layout from '@/components/layout/Layout';
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
-import { Send, Mic, Image, MapPin, Compass } from 'lucide-react';
+import { Send, Mic, Image, MapPin, Compass, X } from 'lucide-react';
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
 import { Card } from "@/components/ui/card";
 import { Separator } from "@/components/ui/separator";
@@ -268,6 +268,10 @@ const ChatBot: React.FC = () => {
     }, 1500);
   };
 
+  const handleClearSelectedChat = () => {
+    setSelectedChat(null);
+  };
+
   return (
     <Layout>
       <ChatSection activeTab={activeTab} onTabChange={setActiveTab}>
@@ -375,11 +379,20 @@ const ChatBot: React.FC = () => {
               <FriendsChat onSelectFriend={handleSelectFriend} />
             </div>
           ) : (
-            <div className="flex w-full">
+            <div className="flex w-full relative">
               <div className="w-1/3 border-r border-gray-200 h-full">
                 <FriendsChat onSelectFriend={handleSelectFriend} />
               </div>
               <div className="w-2/3 h-full">
+                <div className="absolute top-4 right-4 z-10">
+                  <Button 
+                    variant="ghost" 
+                    size="icon" 
+                    onClick={handleClearSelectedChat}
+                  >
+                    <X className="h-6 w-6 text-gray-500 hover:text-gray-700" />
+                  </Button>
+                </div>
                 <ConversationView
                   title={selectedChat.name}
                   subtitle={selectedChat.subtitle}
@@ -399,11 +412,20 @@ const ChatBot: React.FC = () => {
               <GroupsChat onSelectGroup={handleSelectGroup} />
             </div>
           ) : (
-            <div className="flex w-full">
+            <div className="flex w-full relative">
               <div className="w-1/3 border-r border-gray-200 h-full">
                 <GroupsChat onSelectGroup={handleSelectGroup} />
               </div>
               <div className="w-2/3 h-full">
+                <div className="absolute top-4 right-4 z-10">
+                  <Button 
+                    variant="ghost" 
+                    size="icon" 
+                    onClick={handleClearSelectedChat}
+                  >
+                    <X className="h-6 w-6 text-gray-500 hover:text-gray-700" />
+                  </Button>
+                </div>
                 <ConversationView
                   title={selectedChat.name}
                   subtitle={selectedChat.subtitle}
