@@ -1,4 +1,3 @@
-
 import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import Layout from '@/components/layout/Layout';
@@ -6,7 +5,7 @@ import { Input } from '@/components/ui/input';
 import { Button } from '@/components/ui/button';
 import DestinationCard from '@/components/home/DestinationCard';
 import CategoryPill from '@/components/home/CategoryPill';
-import { Search, Mountains, Coffee, Utensils, Museum, Beach, MapPin } from 'lucide-react';
+import { Search, Mountains, Coffee, Utensils, Museum, Umbrella, MapPin } from 'lucide-react';
 
 // Mock data - in a real app, this would come from an API
 const featuredDestinations = [
@@ -35,7 +34,7 @@ const categories = [
   { id: 'cafe', icon: <Coffee size={18} />, label: 'Cafes' },
   { id: 'food', icon: <Utensils size={18} />, label: 'Food' },
   { id: 'culture', icon: <Museum size={18} />, label: 'Culture' },
-  { id: 'beaches', icon: <Beach size={18} />, label: 'Beaches' },
+  { id: 'beaches', icon: <Umbrella size={18} />, label: 'Beaches' },
 ];
 
 const Home: React.FC = () => {
