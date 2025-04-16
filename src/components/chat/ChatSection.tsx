@@ -33,10 +33,9 @@ const ChatSection: React.FC<ChatSectionProps> = ({
               <span>Groups</span>
             </TabsTrigger>
           </TabsList>
+          {children}
         </Tabs>
       </div>
-      
-      {children}
     </div>
   );
 };
