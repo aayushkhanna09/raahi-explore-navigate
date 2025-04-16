@@ -5,7 +5,7 @@ import { Input } from '@/components/ui/input';
 import { Button } from '@/components/ui/button';
 import DestinationCard from '@/components/home/DestinationCard';
 import CategoryPill from '@/components/home/CategoryPill';
-import { Search, Mountains, Coffee, Utensils, Museum, Umbrella, MapPin } from 'lucide-react';
+import { Search, Mountain, Factory, Coffee, Utensils, MapPin, Umbrella } from 'lucide-react';
 
 // Mock data - in a real app, this would come from an API
 const featuredDestinations = [
@@ -30,10 +30,10 @@ const featuredDestinations = [
 ];
 
 const categories = [
-  { id: 'mountains', icon: <Mountains size={18} />, label: 'Mountains' },
+  { id: 'mountains', icon: <Mountain size={18} />, label: 'Mountains' },
   { id: 'cafe', icon: <Coffee size={18} />, label: 'Cafes' },
   { id: 'food', icon: <Utensils size={18} />, label: 'Food' },
-  { id: 'culture', icon: <Museum size={18} />, label: 'Culture' },
+  { id: 'culture', icon: <Factory size={18} />, label: 'Culture' },
   { id: 'beaches', icon: <Umbrella size={18} />, label: 'Beaches' },
 ];
 
