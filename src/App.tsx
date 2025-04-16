@@ -1,4 +1,5 @@
 
+import React from "react";
 import { Toaster } from "@/components/ui/toaster";
 import { Toaster as Sonner } from "@/components/ui/sonner";
 import { TooltipProvider } from "@/components/ui/tooltip";
@@ -19,31 +20,36 @@ const Profile = lazy(() => import("./pages/Profile"));
 const ChatBot = lazy(() => import("./pages/ChatBot"));
 const NotFound = lazy(() => import("./pages/NotFound"));
 
+// Create a new QueryClient instance
 const queryClient = new QueryClient();
 
-const App = () => (
-  <QueryClientProvider client={queryClient}>
-    <TooltipProvider>
-      <Toaster />
-      <Sonner />
-      <BrowserRouter>
-        <Suspense fallback={<LoadingScreen />}>
-          <Routes>
-            <Route path="/" element={<SplashScreen />} />
-            <Route path="/auth" element={<Auth />} />
-            <Route path="/home" element={<Home />} />
-            <Route path="/explore" element={<Explore />} />
-            <Route path="/plan" element={<PlanTrip />} />
-            <Route path="/map" element={<Map />} />
-            <Route path="/community" element={<Community />} />
-            <Route path="/profile" element={<Profile />} />
-            <Route path="/chat" element={<ChatBot />} />
-            <Route path="*" element={<NotFound />} />
-          </Routes>
-        </Suspense>
-      </BrowserRouter>
-    </TooltipProvider>
-  </QueryClientProvider>
-);
+const App = () => {
+  return (
+    <React.StrictMode>
+      <QueryClientProvider client={queryClient}>
+        <TooltipProvider>
+          <Toaster />
+          <Sonner />
+          <BrowserRouter>
+            <Suspense fallback={<LoadingScreen />}>
+              <Routes>
+                <Route path="/" element={<SplashScreen />} />
+                <Route path="/auth" element={<Auth />} />
+                <Route path="/home" element={<Home />} />
+                <Route path="/explore" element={<Explore />} />
+                <Route path="/plan" element={<PlanTrip />} />
+                <Route path="/map" element={<Map />} />
+                <Route path="/community" element={<Community />} />
+                <Route path="/profile" element={<Profile />} />
+                <Route path="/chat" element={<ChatBot />} />
+                <Route path="*" element={<NotFound />} />
+              </Routes>
+            </Suspense>
+          </BrowserRouter>
+        </TooltipProvider>
+      </QueryClientProvider>
+    </React.StrictMode>
+  );
+};
 
 export default App;
