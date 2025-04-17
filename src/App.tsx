@@ -17,6 +17,7 @@ const PlanTrip = lazy(() => import("./pages/PlanTrip"));
 const Map = lazy(() => import("./pages/Map"));
 const Community = lazy(() => import("./pages/Community"));
 const Profile = lazy(() => import("./pages/Profile"));
+const Settings = lazy(() => import("./pages/Settings"));
 const ChatBot = lazy(() => import("./pages/ChatBot"));
 const NotFound = lazy(() => import("./pages/NotFound"));
 
@@ -41,6 +42,7 @@ const App = () => {
                 <Route path="/map" element={<Map />} />
                 <Route path="/community" element={<Community />} />
                 <Route path="/profile" element={<Profile />} />
+                <Route path="/settings" element={<Settings />} />
                 <Route path="/chat" element={<ChatBot />} />
                 <Route path="*" element={<NotFound />} />
               </Routes>

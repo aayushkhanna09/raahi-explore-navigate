@@ -1,5 +1,4 @@
-
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import Layout from '@/components/layout/Layout';
 import { Button } from '@/components/ui/button';
 import {
@@ -12,19 +11,22 @@ import {
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
 import { Badge } from "@/components/ui/badge";
-import { Switch } from "@/components/ui/switch";
-import { Label } from "@/components/ui/label";
-import { Separator } from "@/components/ui/separator";
-import { Settings, LogOut, Moon, Globe, Bell, MapPin, Map } from 'lucide-react';
+import { Settings, LogOut, MapPin, Map } from 'lucide-react';
 import { useNavigate } from 'react-router-dom';
 import { useToast } from '@/components/ui/use-toast';
 
 const Profile: React.FC = () => {
   const navigate = useNavigate();
   const { toast } = useToast();
+
+  // Check if dark mode is enabled
+  useEffect(() => {
+    const isDarkMode = document.documentElement.classList.contains('dark');
+    setDarkMode(isDarkMode);
+  }, []);
+
+  // State variables
   const [darkMode, setDarkMode] = useState(false);
-  const [language, setLanguage] = useState('english');
-  const [notificationsEnabled, setNotificationsEnabled] = useState(true);
 
   // Mock data - in a real app this would come from an API
   const userProfile = {
@@ -43,7 +45,8 @@ const Profile: React.FC = () => {
       { name: 'Explorer', description: 'Visited 10+ destinations' },
       { name: 'Foodie', description: 'Tried local cuisine in 5+ cities' },
       { name: 'Photographer', description: 'Shared 20+ travel photos' },
-    ]
+    ],
+    tags: ['Solo Traveller', 'Foodie', 'Photographer', 'Mountain Lover']
   };
 
   const pastTrips = [
@@ -93,14 +96,6 @@ const Profile: React.FC = () => {
     navigate('/auth');
   };
 
-  const handleToggleDarkMode = () => {
-    setDarkMode(!darkMode);
-    toast({
-      title: `${!darkMode ? 'Dark' : 'Light'} mode activated`,
-      description: `Theme has been changed to ${!darkMode ? 'dark' : 'light'} mode.`,
-    });
-  };
-
   return (
     <Layout>
       <div className="p-4 pb-20">
@@ -130,6 +125,14 @@ const Profile: React.FC = () => {
 
             <div className="mt-4 text-sm">{userProfile.bio}</div>
 
+            <div className="flex flex-wrap gap-2 mt-3">
+              {userProfile.tags.map(tag => (
+                <Badge key={tag} variant="outline" className="bg-primary/10">
+                  {tag}
+                </Badge>
+              ))}
+            </div>
+
             <div className="grid grid-cols-3 gap-4 mt-4 text-center">
               <div>
                 <div className="text-2xl font-bold">{userProfile.stats.trips}</div>
@@ -143,6 +146,16 @@ const Profile: React.FC = () => {
                 <div className="text-2xl font-bold">{userProfile.stats.badges}</div>
                 <div className="text-sm text-gray-500">Badges</div>
               </div>
+            </div>
+            
+            <div className="mt-4 flex justify-center">
+              <Button 
+                variant="outline" 
+                onClick={() => navigate('/settings')}
+                className="w-full"
+              >
+                Edit Profile
+              </Button>
             </div>
           </CardContent>
         </Card>
@@ -215,70 +228,6 @@ const Profile: React.FC = () => {
             </div>
           </TabsContent>
         </Tabs>
-
-        <Card>
-          <CardHeader>
-            <CardTitle>Settings</CardTitle>
-          </CardHeader>
-          <CardContent className="space-y-4">
-            <div className="flex items-center justify-between">
-              <div className="flex items-center space-x-2">
-                <Moon size={20} />
-                <Label htmlFor="dark-mode">Dark Mode</Label>
-              </div>
-              <Switch
-                id="dark-mode"
-                checked={darkMode}
-                onCheckedChange={handleToggleDarkMode}
-              />
-            </div>
-            
-            <Separator />
-            
-            <div className="flex items-center justify-between">
-              <div className="flex items-center space-x-2">
-                <Globe size={20} />
-                <Label htmlFor="language">Language</Label>
-              </div>
-              <select
-                id="language"
-                className="bg-transparent text-right cursor-pointer outline-none"
-                value={language}
-                onChange={(e) => setLanguage(e.target.value)}
-              >
-                <option value="english">English</option>
-                <option value="hindi">Hindi</option>
-                <option value="tamil">Tamil</option>
-                <option value="bengali">Bengali</option>
-              </select>
-            </div>
-            
-            <Separator />
-            
-            <div className="flex items-center justify-between">
-              <div className="flex items-center space-x-2">
-                <Bell size={20} />
-                <Label htmlFor="notifications">Notifications</Label>
-              </div>
-              <Switch
-                id="notifications"
-                checked={notificationsEnabled}
-                onCheckedChange={setNotificationsEnabled}
-              />
-            </div>
-            
-            <Separator />
-            
-            <Button 
-              variant="destructive" 
-              className="w-full mt-4"
-              onClick={handleLogout}
-            >
-              <LogOut className="mr-2 h-4 w-4" />
-              Logout
-            </Button>
-          </CardContent>
-        </Card>
       </div>
     </Layout>
   );
