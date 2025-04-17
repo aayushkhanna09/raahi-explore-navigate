@@ -97,6 +97,10 @@ export default {
 					'0%, 100%': { transform: 'translateY(0)' },
 					'50%': { transform: 'translateY(-5px)' }
 				},
+				'story-progress': {
+					'0%': { width: '0%' },
+					'100%': { width: '100%' }
+				},
 			},
 			animation: {
 				'accordion-down': 'accordion-down 0.2s ease-out',
@@ -104,6 +108,7 @@ export default {
 				'fade-in': 'fade-in 0.5s ease-out forwards',
 				'slide-up': 'slide-up 0.5s ease-out forwards',
 				'bounce-light': 'bounce-light 2s infinite ease-in-out',
+				'story-progress': 'story-progress 5s linear forwards',
 			}
 		}
 	},

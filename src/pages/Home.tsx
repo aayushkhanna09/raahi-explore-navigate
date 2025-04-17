@@ -147,8 +147,8 @@ const Home: React.FC = () => {
 
         <div>
           <h2 className="font-heading font-medium mb-3">Browse by Category</h2>
-          <ScrollArea className="w-full" orientation="horizontal">
-            <div className="flex gap-3 pb-2 min-w-max">
+          <ScrollArea className="w-full whitespace-nowrap pb-2">
+            <div className="flex gap-3 pb-2">
               {categories.map(category => (
                 <CategoryPill
                   key={category.id}
@@ -169,8 +169,8 @@ const Home: React.FC = () => {
             {activeCategory ? `${categories.find(c => c.id === activeCategory)?.label}` : 'Featured Destinations'}
           </h2>
           {filteredDestinations.length > 0 ? (
-            <ScrollArea className="w-full" orientation="horizontal">
-              <div className="flex gap-4 min-w-max pb-4">
+            <div className="overflow-x-auto scrollbar-hide pb-4">
+              <div className="flex gap-4 min-w-max">
                 {filteredDestinations.map(destination => (
                   <DestinationCard
                     key={destination.id}
@@ -181,7 +181,7 @@ const Home: React.FC = () => {
                   />
                 ))}
               </div>
-            </ScrollArea>
+            </div>
           ) : (
             <div className="text-center py-8 bg-gray-50 dark:bg-gray-700 rounded-lg">
               <p className="text-gray-500 dark:text-gray-300">No destinations found for this category.</p>

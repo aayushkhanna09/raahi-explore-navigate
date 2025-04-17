@@ -1,12 +1,11 @@
 
-import React from 'react';
+import React, { useState } from 'react';
 import Layout from '@/components/layout/Layout';
 import { Card, CardContent, CardDescription, CardFooter, CardHeader, CardTitle } from '@/components/ui/card';
 import { Avatar, AvatarFallback, AvatarImage } from '@/components/ui/avatar';
 import { Button } from '@/components/ui/button';
-import { ScrollArea } from '@/components/ui/scroll-area';
 import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs';
-import { Carousel, CarouselContent, CarouselItem, CarouselNext, CarouselPrevious } from '@/components/ui/carousel';
+import { Carousel, CarouselContent, CarouselItem } from '@/components/ui/carousel';
 import { Heart, MessageCircle, Share, Bookmark, Users, Image as ImageIcon } from 'lucide-react';
 
 // Utility function to format the time passed since a post
@@ -107,29 +106,39 @@ const events = [
 
 const Community: React.FC = () => {
   const [activeTab, setActiveTab] = React.useState('feed');
+  const [activeStory, setActiveStory] = useState<number | null>(null);
+
+  const handleStoryClick = (id: number) => {
+    setActiveStory(id);
+    // In a real app, you would show the full story view
+    setTimeout(() => setActiveStory(null), 3000); // Auto-close after 3 seconds
+  };
 
   return (
     <Layout>
       <div className="flex flex-col w-full">
-        {/* Stories */}
+        {/* Stories - Instagram Style */}
         <div className="p-4 bg-white dark:bg-gray-800">
-          <h2 className="text-lg font-semibold mb-3">Travel Stories</h2>
-          <div className="relative">
-            <ScrollArea className="w-full" orientation="horizontal">
-              <div className="flex space-x-4 pb-2 px-1 min-w-max">
-                {stories.map((story) => (
-                  <div key={story.id} className="flex flex-col items-center">
-                    <div className={`rounded-full p-0.5 ${story.seen ? 'bg-gray-300 dark:bg-gray-600' : 'bg-gradient-to-tr from-primary to-accent'}`}>
+          <div className="overflow-x-auto scrollbar-hide">
+            <div className="flex space-x-4 pb-2 min-w-max">
+              {stories.map((story) => (
+                <button 
+                  key={story.id} 
+                  className="flex flex-col items-center w-20"
+                  onClick={() => handleStoryClick(story.id)}
+                >
+                  <div className={`rounded-full p-[2px] ${activeStory === story.id ? 'bg-primary' : story.seen ? 'bg-gray-300 dark:bg-gray-600' : 'bg-gradient-to-tr from-primary to-accent'}`}>
+                    <div className="rounded-full p-0.5 bg-white dark:bg-gray-800">
                       <Avatar className="h-16 w-16 border-2 border-white dark:border-gray-800">
                         <AvatarImage src={story.avatar} alt={story.name} />
                         <AvatarFallback>{story.name.substring(0, 2)}</AvatarFallback>
                       </Avatar>
                     </div>
-                    <span className="text-xs mt-1 text-center">{story.username}</span>
                   </div>
-                ))}
-              </div>
-            </ScrollArea>
+                  <span className="text-xs mt-1 text-center truncate w-full">{story.username}</span>
+                </button>
+              ))}
+            </div>
           </div>
         </div>
 
