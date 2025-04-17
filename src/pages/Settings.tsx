@@ -23,7 +23,6 @@ import {
   ShieldCheck, 
   Lock, 
   Globe, 
-  Moon, 
   LogOut, 
   X,
   Plus,
@@ -34,7 +33,6 @@ import { useToast } from '@/components/ui/use-toast';
 const Settings = () => {
   const navigate = useNavigate();
   const { toast } = useToast();
-  const [darkMode, setDarkMode] = useState(false);
   const [language, setLanguage] = useState('english');
   const [notificationsEnabled, setNotificationsEnabled] = useState(true);
 
@@ -80,21 +78,6 @@ const Settings = () => {
 
   const handleRemoveTag = (tagToRemove: string) => {
     setTags(tags.filter(tag => tag !== tagToRemove));
-  };
-
-  const handleToggleDarkMode = () => {
-    setDarkMode(!darkMode);
-    // Apply dark mode to the document
-    if (!darkMode) {
-      document.documentElement.classList.add('dark');
-    } else {
-      document.documentElement.classList.remove('dark');
-    }
-    
-    toast({
-      title: `${!darkMode ? 'Dark' : 'Light'} mode activated`,
-      description: `Theme has been changed to ${!darkMode ? 'dark' : 'light'} mode.`,
-    });
   };
 
   const handleLogout = () => {
@@ -257,26 +240,6 @@ const Settings = () => {
           </TabsContent>
 
           <TabsContent value="preferences" className="mt-4 space-y-4">
-            <Card>
-              <CardHeader>
-                <CardTitle>Appearance</CardTitle>
-                <CardDescription>Customize how RAही looks</CardDescription>
-              </CardHeader>
-              <CardContent className="space-y-4">
-                <div className="flex items-center justify-between">
-                  <div className="flex items-center space-x-2">
-                    <Moon size={20} />
-                    <Label htmlFor="dark-mode">Dark Mode</Label>
-                  </div>
-                  <Switch
-                    id="dark-mode"
-                    checked={darkMode}
-                    onCheckedChange={handleToggleDarkMode}
-                  />
-                </div>
-              </CardContent>
-            </Card>
-
             <Card>
               <CardHeader>
                 <CardTitle>Notifications</CardTitle>

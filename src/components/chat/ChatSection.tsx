@@ -2,7 +2,7 @@
 import React from 'react';
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
-import { User, Users, Bot } from 'lucide-react';
+import { User, Users } from 'lucide-react';
 
 interface ChatSectionProps {
   activeTab: string;
@@ -19,11 +19,7 @@ const ChatSection: React.FC<ChatSectionProps> = ({
     <div className="flex flex-col h-screen">
       <div className="p-4 bg-white shadow-sm">
         <Tabs value={activeTab} onValueChange={onTabChange} className="w-full">
-          <TabsList className="grid w-full grid-cols-3">
-            <TabsTrigger value="ai" className="flex items-center gap-2">
-              <Bot size={16} />
-              <span>RAही AI</span>
-            </TabsTrigger>
+          <TabsList className="grid w-full grid-cols-2">
             <TabsTrigger value="friends" className="flex items-center gap-2">
               <User size={16} />
               <span>Friends</span>

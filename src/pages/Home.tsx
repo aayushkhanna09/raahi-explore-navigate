@@ -75,12 +75,6 @@ const Home: React.FC = () => {
   const [searchQuery, setSearchQuery] = useState('');
   const navigate = useNavigate();
 
-  // Check if dark mode is enabled on load
-  useEffect(() => {
-    const isDark = document.documentElement.classList.contains('dark');
-    console.log("Dark mode is:", isDark);
-  }, []);
-
   // Filter destinations based on active category and search query
   const filteredDestinations = allDestinations.filter(destination => {
     const matchesCategory = activeCategory 
