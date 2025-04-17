@@ -7,6 +7,7 @@ import { Button } from '@/components/ui/button';
 import DestinationCard from '@/components/home/DestinationCard';
 import CategoryPill from '@/components/home/CategoryPill';
 import { Search, Mountain, Factory, Coffee, Utensils, MapPin, Umbrella } from 'lucide-react';
+import { ScrollArea } from '@/components/ui/scroll-area';
 
 // Mock data - in a real app, this would come from an API
 const allDestinations = [
@@ -112,7 +113,7 @@ const Home: React.FC = () => {
           </h1>
           <button 
             onClick={() => navigate('/profile')}
-            className="w-10 h-10 bg-gray-200 rounded-full flex items-center justify-center"
+            className="w-10 h-10 bg-gray-200 dark:bg-gray-700 rounded-full flex items-center justify-center"
           >
             <span className="sr-only">Profile</span>
             <span className="text-lg">👤</span>
@@ -132,9 +133,9 @@ const Home: React.FC = () => {
           />
         </div>
 
-        <div className="bg-white rounded-lg shadow p-4 space-y-3">
+        <div className="bg-white dark:bg-gray-800 rounded-lg shadow p-4 space-y-3">
           <h2 className="font-heading font-medium">Plan Your Next Adventure</h2>
-          <p className="text-sm text-gray-500">Create custom itineraries based on your preferences</p>
+          <p className="text-sm text-gray-500 dark:text-gray-300">Create custom itineraries based on your preferences</p>
           <Button 
             onClick={handlePlanTrip} 
             className="bg-primary hover:bg-primary-dark w-full"
@@ -146,19 +147,21 @@ const Home: React.FC = () => {
 
         <div>
           <h2 className="font-heading font-medium mb-3">Browse by Category</h2>
-          <div className="flex gap-3 overflow-x-auto pb-2 scrollbar-hide">
-            {categories.map(category => (
-              <CategoryPill
-                key={category.id}
-                icon={category.icon}
-                label={category.label}
-                isActive={activeCategory === category.id}
-                onClick={() => setActiveCategory(
-                  activeCategory === category.id ? '' : category.id
-                )}
-              />
-            ))}
-          </div>
+          <ScrollArea className="w-full" orientation="horizontal">
+            <div className="flex gap-3 pb-2 min-w-max">
+              {categories.map(category => (
+                <CategoryPill
+                  key={category.id}
+                  icon={category.icon}
+                  label={category.label}
+                  isActive={activeCategory === category.id}
+                  onClick={() => setActiveCategory(
+                    activeCategory === category.id ? '' : category.id
+                  )}
+                />
+              ))}
+            </div>
+          </ScrollArea>
         </div>
 
         <div>
@@ -166,20 +169,22 @@ const Home: React.FC = () => {
             {activeCategory ? `${categories.find(c => c.id === activeCategory)?.label}` : 'Featured Destinations'}
           </h2>
           {filteredDestinations.length > 0 ? (
-            <div className="flex gap-4 overflow-x-auto pb-4 scrollbar-hide">
-              {filteredDestinations.map(destination => (
-                <DestinationCard
-                  key={destination.id}
-                  title={destination.title}
-                  location={destination.location}
-                  imageUrl={destination.imageUrl}
-                  onClick={() => handleDestinationClick(destination.id)}
-                />
-              ))}
-            </div>
+            <ScrollArea className="w-full" orientation="horizontal">
+              <div className="flex gap-4 min-w-max pb-4">
+                {filteredDestinations.map(destination => (
+                  <DestinationCard
+                    key={destination.id}
+                    title={destination.title}
+                    location={destination.location}
+                    imageUrl={destination.imageUrl}
+                    onClick={() => handleDestinationClick(destination.id)}
+                  />
+                ))}
+              </div>
+            </ScrollArea>
           ) : (
-            <div className="text-center py-8 bg-gray-50 rounded-lg">
-              <p className="text-gray-500">No destinations found for this category.</p>
+            <div className="text-center py-8 bg-gray-50 dark:bg-gray-700 rounded-lg">
+              <p className="text-gray-500 dark:text-gray-300">No destinations found for this category.</p>
               <Button 
                 variant="link" 
                 onClick={() => setActiveCategory('')}

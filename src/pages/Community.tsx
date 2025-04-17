@@ -111,42 +111,26 @@ const Community: React.FC = () => {
   return (
     <Layout>
       <div className="flex flex-col w-full">
-        {/* Page Header */}
-        <div className="bg-gradient-to-r from-primary/80 to-primary-light p-6 text-white">
-          <h1 className="text-3xl font-bold mb-2">Community</h1>
-          <p className="text-white/90 max-w-2xl">
-            Connect with fellow travelers, share your experiences, discover travel buddies, and join exciting community events!
-          </p>
-        </div>
-
         {/* Stories */}
-        <div className="p-4 bg-white">
+        <div className="p-4 bg-white dark:bg-gray-800">
           <h2 className="text-lg font-semibold mb-3">Travel Stories</h2>
-          <Carousel
-            opts={{
-              align: 'start',
-              loop: true,
-            }}
-            className="w-full"
-          >
-            <CarouselContent>
-              {stories.map((story) => (
-                <CarouselItem key={story.id} className="basis-1/6 sm:basis-1/6">
-                  <div className="flex flex-col items-center">
-                    <div className={`rounded-full p-1 ${story.seen ? 'bg-gray-300' : 'bg-gradient-to-tr from-primary to-accent'}`}>
-                      <Avatar className="h-16 w-16 border-2 border-white">
+          <div className="relative">
+            <ScrollArea className="w-full" orientation="horizontal">
+              <div className="flex space-x-4 pb-2 px-1 min-w-max">
+                {stories.map((story) => (
+                  <div key={story.id} className="flex flex-col items-center">
+                    <div className={`rounded-full p-0.5 ${story.seen ? 'bg-gray-300 dark:bg-gray-600' : 'bg-gradient-to-tr from-primary to-accent'}`}>
+                      <Avatar className="h-16 w-16 border-2 border-white dark:border-gray-800">
                         <AvatarImage src={story.avatar} alt={story.name} />
                         <AvatarFallback>{story.name.substring(0, 2)}</AvatarFallback>
                       </Avatar>
                     </div>
                     <span className="text-xs mt-1 text-center">{story.username}</span>
                   </div>
-                </CarouselItem>
-              ))}
-            </CarouselContent>
-            <CarouselPrevious className="left-0" />
-            <CarouselNext className="right-0" />
-          </Carousel>
+                ))}
+              </div>
+            </ScrollArea>
+          </div>
         </div>
 
         {/* Main Content Tabs */}
@@ -167,7 +151,7 @@ const Community: React.FC = () => {
                       <AvatarImage src="/placeholder.svg" alt="Your profile" />
                       <AvatarFallback>YP</AvatarFallback>
                     </Avatar>
-                    <div className="flex-1 bg-secondary rounded-full px-4 py-2 text-sm text-gray-500 cursor-pointer hover:bg-secondary/80">
+                    <div className="flex-1 bg-secondary rounded-full px-4 py-2 text-sm text-gray-500 dark:text-gray-400 cursor-pointer hover:bg-secondary/80">
                       Share your travel experience...
                     </div>
                   </div>
@@ -190,7 +174,7 @@ const Community: React.FC = () => {
 
               {/* Posts */}
               {posts.map((post) => (
-                <Card key={post.id} className="overflow-hidden animate-fade-in">
+                <Card key={post.id} className="overflow-hidden animate-fade-in dark:bg-gray-800">
                   <CardHeader className="p-4 pb-2">
                     <div className="flex items-center space-x-3">
                       <Avatar>
@@ -215,7 +199,7 @@ const Community: React.FC = () => {
                       />
                     </div>
                   </CardContent>
-                  <CardFooter className="p-2 px-4 flex justify-between border-t">
+                  <CardFooter className="p-2 px-4 flex justify-between border-t dark:border-gray-700">
                     <Button variant="ghost" size="sm" className="text-xs">
                       <Heart className="h-4 w-4 mr-1" /> {post.likes}
                     </Button>
@@ -236,7 +220,7 @@ const Community: React.FC = () => {
             <TabsContent value="events" className="space-y-4">
               <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
                 {events.map((event) => (
-                  <Card key={event.id} className="overflow-hidden hover:shadow-md transition-shadow">
+                  <Card key={event.id} className="overflow-hidden hover:shadow-md transition-shadow dark:bg-gray-800">
                     <div className="relative h-48">
                       <img 
                         src={event.image} 
@@ -250,7 +234,7 @@ const Community: React.FC = () => {
                     </div>
                     <CardContent className="p-4">
                       <div className="flex justify-between items-center">
-                        <span className="text-sm text-gray-500">
+                        <span className="text-sm text-gray-500 dark:text-gray-400">
                           <Users className="h-4 w-4 inline mr-1" /> 
                           {event.attendees} attending
                         </span>
@@ -263,9 +247,9 @@ const Community: React.FC = () => {
             </TabsContent>
 
             <TabsContent value="discover" className="space-y-4">
-              <div className="bg-secondary p-6 rounded-lg mb-4">
+              <div className="bg-secondary dark:bg-gray-800 p-6 rounded-lg mb-4">
                 <h3 className="text-lg font-semibold mb-2">Discover Fellow Travelers</h3>
-                <p className="text-sm text-gray-600 mb-4">
+                <p className="text-sm text-gray-600 dark:text-gray-400 mb-4">
                   Find travel companions with similar interests or get inspired by experienced travelers
                 </p>
                 <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 gap-4">
@@ -276,7 +260,7 @@ const Community: React.FC = () => {
                         <AvatarFallback>{traveler.name.substring(0, 2)}</AvatarFallback>
                       </Avatar>
                       <span className="font-medium text-sm">{traveler.name}</span>
-                      <span className="text-xs text-gray-500">@{traveler.username}</span>
+                      <span className="text-xs text-gray-500 dark:text-gray-400">@{traveler.username}</span>
                       <Button variant="outline" size="sm" className="mt-2 text-xs w-full">
                         Follow
                       </Button>
@@ -285,7 +269,7 @@ const Community: React.FC = () => {
                 </div>
               </div>
               
-              <Card>
+              <Card className="dark:bg-gray-800">
                 <CardHeader>
                   <CardTitle>Popular Travel Topics</CardTitle>
                   <CardDescription>Join conversations about these trending topics</CardDescription>

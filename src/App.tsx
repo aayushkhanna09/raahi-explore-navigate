@@ -1,5 +1,5 @@
 
-import React from "react";
+import React, { useEffect } from "react";
 import { Toaster } from "@/components/ui/toaster";
 import { Toaster as Sonner } from "@/components/ui/sonner";
 import { TooltipProvider } from "@/components/ui/tooltip";
@@ -25,6 +25,22 @@ const NotFound = lazy(() => import("./pages/NotFound"));
 const queryClient = new QueryClient();
 
 const App = () => {
+  // Check for user's preferred color scheme and set dark mode accordingly
+  useEffect(() => {
+    // Check if the user prefers dark mode
+    const prefersDarkMode = window.matchMedia('(prefers-color-scheme: dark)').matches;
+    
+    // Check if there's a saved preference in localStorage
+    const savedTheme = localStorage.getItem('theme');
+    
+    // Apply the appropriate theme
+    if (savedTheme === 'dark' || (!savedTheme && prefersDarkMode)) {
+      document.documentElement.classList.add('dark');
+    } else {
+      document.documentElement.classList.remove('dark');
+    }
+  }, []);
+
   return (
     <React.StrictMode>
       <QueryClientProvider client={queryClient}>
